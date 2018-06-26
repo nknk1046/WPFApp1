@@ -37,6 +37,18 @@ namespace WpfApp4
         //カメラキャプチャのクラスを定義
         public bool IsExitCapture { get; set; }
 
+        //Skypeの定数を定義
+        private string _enabledMachine = "*****";
+        private string _enabledUser = "*****";
+
+        private string _user = "******";
+        private string _password = "*****";
+
+        private string _programPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+        private string _skypePath = @"\Microsoft\Skype for Desktop\Skype.exe";
+
+        public event ExitEventHandler evt;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -203,37 +215,7 @@ namespace WpfApp4
 
             }
 
-            //リクエストの作成
-            //HttpClient faceClient = new HttpClient();
-            //Uri face_uri = new Uri(face_url);
-            //Debug.WriteLine("uri:"+ face_uri);
-            //Debug.WriteLine("url:"+ face_url);
-            //faceClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
-            //faceClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", face_key);
-
-            //Azureへ接続してレスポンス取得
-            //var respose = await faceClient.PostAsync("https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false", content);
-            //Debug.WriteLine("Test2" + respose);
-
-            /*
-            //リクエストの作成
-            HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(face_url);
-            wr.ContentType = "application/json";
-            wr.Method = "POST";
-            wr.KeepAlive = true;
-            wr.Credentials = System.Net.CredentialCache.DefaultCredentials;
-            wr.Headers.Add("Ocp-Apim-Subscription-Key", face_key);
-
-            //接続
-            Stream rs = wr.GetRequestStream();
-            string responseStr = null;
-
-            //送信するデータ（画像データとバイト数）き込む
-            string postdata = "{\"url\": filePath}";
-            byte[] postdatabytes = System.Text.Encoding.UTF8.GetBytes(postdata);
-            rs.Write(postdatabytes, 0, postdatabytes.Length);
-            rs.Close();
-            */
+            //
 
         }
 
@@ -247,5 +229,24 @@ namespace WpfApp4
             }
            //throw new NotImplementedException();
         }
+
+        //Skype起動イベント
+        private void SkypeButton_Click(object sender, RoutedEventArgs e)
+        {          
+
+            Process process = new Process();
+            process.EnableRaisingEvents = true;
+            process.Exited += new EventHandler(process_Exited);
+            process.StartInfo = new ProcessStartInfo(_programPath + _skypePath);
+            process.Start();
+
+        }
+
+        void process_Exited(object sender, EventArgs e)
+        {
+            Process process = (Process)sender;
+            MessageBox.Show(process.StartInfo.FileName + " end");
+        }
+
     }
 }

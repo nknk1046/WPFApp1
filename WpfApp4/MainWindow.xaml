@@ -12,6 +12,7 @@
         <TextBox Name="ResultBox" HorizontalAlignment="Left" Height="393" Margin="626,77,0,0" TextWrapping="Wrap" Text="JSONResult" VerticalAlignment="Top" Width="243"/>
         <TextBox Name="ConditionResult" HorizontalAlignment="Left" Height="62" Margin="62,10,0,0" TextWrapping="Wrap" Text="ConditionMessage" VerticalAlignment="Top" Width="807"/>
         <Image Name="_Image" HorizontalAlignment="Left" Height="175" Margin="152,504,0,0" VerticalAlignment="Top" Width="308"/>
+        <Button Name="SkypeButton" Content="Skype起動" HorizontalAlignment="Left" Height="25" Margin="626,491,0,0" VerticalAlignment="Top" Width="243" Click="SkypeButton_Click"/>
 
     </Grid>
 </Window>
