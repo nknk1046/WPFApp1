@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApp4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080">
+    <Grid>
+        <Button Name="BrowseButton" Content="画像選択" HorizontalAlignment="Left" Height="37" Margin="62,433,0,0" VerticalAlignment="Top" Width="522" Click="Browsebutton_Click "/>
+        <Image Name="FacePhoto" HorizontalAlignment="Left" Height="331" Margin="62,77,0,0" VerticalAlignment="Top" Width="522"/>
+        <TextBox Name="ResultBox" HorizontalAlignment="Left" Height="393" Margin="626,77,0,0" TextWrapping="Wrap" Text="JSONResult" VerticalAlignment="Top" Width="243"/>
+        <TextBox Name="ConditionResult" HorizontalAlignment="Left" Height="62" Margin="62,10,0,0" TextWrapping="Wrap" Text="ConditionMessage" VerticalAlignment="Top" Width="807"/>
+        <Image Name="_Image" HorizontalAlignment="Left" Height="175" Margin="152,504,0,0" VerticalAlignment="Top" Width="308"/>
+
+    </Grid>
+</Window>
