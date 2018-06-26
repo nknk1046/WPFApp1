@@ -27,7 +27,7 @@ using OpenCvSharp.Extensions;
 namespace WpfApp4
 {
     /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
+    /// MainWindow.xaml の相互作用ロジックです
     /// </summary>
     /// 
 
