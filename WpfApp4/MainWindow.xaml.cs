@@ -59,6 +59,7 @@ namespace WpfApp4
         /// </summary>
         public virtual void Capture(object state)
         {
+            Console.WriteLine("Test2");
             var camera = new VideoCapture(0/*0番目のデバイスを指定*/)
             {
                 // キャプチャする画像のサイズフレームレートの指定
@@ -70,6 +71,7 @@ namespace WpfApp4
             using (var img = new Mat()) // 撮影した画像を受ける変数
             using (camera)
             {
+                Console.WriteLine("Test1");
                 while (true)
                 {
                     if (this.IsExitCapture)
@@ -195,14 +197,14 @@ namespace WpfApp4
                     Console.WriteLine(happiness);
                     string condition = "";
 
-                    if(float.Parse(happiness) > 0.5)
+                    if (float.Parse(happiness) > 0.5)
                     {
                         condition = "いい体調ですね！";
                         Console.WriteLine(condition);
                         ConditionResult.Text = condition;
 
                     }
-                            else
+                    else
                     {
                         condition = "体調がよくなさそうです！";
                         Console.WriteLine(condition);
@@ -227,12 +229,12 @@ namespace WpfApp4
                 BinaryReader binaryReader = new BinaryReader(fileStream);
                 return binaryReader.ReadBytes((int)fileStream.Length);
             }
-           //throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         //Skype起動イベント
         private void SkypeButton_Click(object sender, RoutedEventArgs e)
-        {          
+        {
 
             Process process = new Process();
             process.EnableRaisingEvents = true;
@@ -247,6 +249,43 @@ namespace WpfApp4
             Process process = (Process)sender;
             MessageBox.Show(process.StartInfo.FileName + " end");
         }
+
+
+        /// <summary>
+        /// Captureボタンが押され時
+        /// </summary>
+        protected virtual void CameraButton_Click(object sender, RoutedEventArgs e)
+        {
+            //this.IsExitCapture = true;
+            Console.WriteLine("起動確認");
+            System.Threading.ThreadPool.QueueUserWorkItem(this.Capture);
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+
+        {
+            //  WriteableBitmapを渡しているので、その型へと戻す
+            var image = (WriteableBitmap)_Image.Source;
+
+            //画面に表示
+            FacePhoto.Source = image;
+
+
+            //  Bitmap以外にも出力できるけれど、今回はBitmapにしておく
+            //  また、ファイルは上書きで保存する
+
+            using (var fs = new System.IO.FileStream("hoge.bmp", System.IO.FileMode.Create))
+            {
+                //  BmpBitmapEncoderの他に、PngBitmapEncoderとかもある
+                var enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(image));
+                enc.Save(fs);
+
+                MessageBox.Show("保存しました");
+            }
+        }
+
+
 
     }
 }
